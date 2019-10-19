@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Veranstaltungen</title>
+</head>
+<body>
+<h1>Veranstaltungen</h1>
+<ul th:remove="all-but-first"
+    th:each="veranstaltung : ${veranstaltungen}">
+    <li><span th:text="${veranstaltung.sprecher}">Loony Mike</span>:
+        <a th:text="${veranstaltung.titel}"
+           th:href="|/anmelden/${veranstaltung.link}|">A night to remember</a>
+        (<span th:text="${#temporals.format(veranstaltung.datum, 'dd.MM.yyyy')}">1.1.1970</span>)
+    </li>
+</ul>
+<a href="/create">Veranstaltung anlegen</a>
+</body>
+</html>
