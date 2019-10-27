@@ -9,9 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 public class AnmeldungsController {
@@ -41,6 +44,15 @@ public class AnmeldungsController {
         anmeldungen.save(veranstaltungsAnmeldung);
         return "anmeldung";
     }
+
+    @GetMapping("verlosung/{id}")
+    @ResponseBody
+    public List<String> verlosung(@PathVariable("id") UUID link) {
+        return anmeldungen.findAllNameByNameIsNotNullAndVeranstaltung(link).stream()
+                .map(VeranstaltungsAnmeldung::getName)
+                .collect(Collectors.toList());
+    }
+
 
     @GetMapping("/")
     public String index(Model m) {

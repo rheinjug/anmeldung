@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface NewsletterAnmeldungRepository extends CrudRepository<NewsletterAnmeldung, Long> {
-    List<NewsletterAnmeldung> findAllByConfirmed();
+    List<NewsletterAnmeldung> findAllByConfirmedIsTrue();
 }
