@@ -1,7 +1,9 @@
 package de.rheinjug.anmeldung;
 
 import de.rheinjug.anmeldung.model.Formular;
+import de.rheinjug.anmeldung.model.NewsletterAnmeldung;
 import de.rheinjug.anmeldung.model.Veranstaltung;
+import de.rheinjug.anmeldung.model.VeranstaltungsAnmeldung;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,9 @@ import java.util.UUID;
 public class AnmeldungsController {
 
     private VeranstaltungRepository veranstaltungen;
+    private NewsletterAnmeldungRepository newsletter;
+    private VeranstaltungsAnmeldungRepository anmeldungen;
 
-    public AnmeldungsController(VeranstaltungRepository veranstaltungen) {
-        this.veranstaltungen = veranstaltungen;
-    }
 
     @GetMapping("anmelden/{id}")
     public String anmeldeseite(@PathVariable("id") UUID link) {
@@ -27,7 +28,12 @@ public class AnmeldungsController {
 
     @PostMapping("anmelden/{id}")
     public String anmeldeseite(@PathVariable("id") UUID link, Formular formular) {
-        System.out.println(formular);
+        if (formular.isSubscribe()) {
+            NewsletterAnmeldung newsletterAnmeldung = new NewsletterAnmeldung(formular.getMail());
+            newsletter.save(newsletterAnmeldung);
+        }
+        VeranstaltungsAnmeldung veranstaltungsAnmeldung = new VeranstaltungsAnmeldung(link, formular.getName(), formular.getMail());
+        anmeldungen.save(veranstaltungsAnmeldung);
         return "anmeldung";
     }
 
