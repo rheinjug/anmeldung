@@ -20,6 +20,11 @@ public class AnmeldungsController {
     private NewsletterAnmeldungRepository newsletter;
     private VeranstaltungsAnmeldungRepository anmeldungen;
 
+    public AnmeldungsController(VeranstaltungRepository veranstaltungen, NewsletterAnmeldungRepository newsletter, VeranstaltungsAnmeldungRepository anmeldungen) {
+        this.veranstaltungen = veranstaltungen;
+        this.newsletter = newsletter;
+        this.anmeldungen = anmeldungen;
+    }
 
     @GetMapping("anmelden/{id}")
     public String anmeldeseite(@PathVariable("id") UUID link) {
