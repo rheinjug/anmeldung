@@ -4,8 +4,7 @@ services:
     image: postgres
     environment:
       - "POSTGRES_PASSWORD=development_only"
-
-  anmeldung:
-    build: .
     ports:
-      - "8080:8080"
+      - "5432:5432"
+
+
