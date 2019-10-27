@@ -1,5 +1,6 @@
 package de.rheinjug.anmeldung;
 
+import de.rheinjug.anmeldung.model.Formular;
 import de.rheinjug.anmeldung.model.Veranstaltung;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,13 @@ public class AnmeldungsController {
     }
 
     @GetMapping("anmelden/{id}")
-    public String anmeldeseite(@PathVariable("id") UUID id) {
+    public String anmeldeseite(@PathVariable("id") UUID link) {
+        return "anmeldung";
+    }
+
+    @PostMapping("anmelden/{id}")
+    public String anmeldeseite(@PathVariable("id") UUID link, Formular formular) {
+        System.out.println(formular);
         return "anmeldung";
     }
 
